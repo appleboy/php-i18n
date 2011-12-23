@@ -101,7 +101,7 @@ class Language {
 
     private function _set_language()
     {
-        $lang = (isset($_GET['lang'])) ? strtolower($_GET['lang']) : (isset($_GET['lang'])) ? strtolower($_GET['lang']) : "";
+        $lang = (isset($_GET['lang'])) ? strtolower($_GET['lang']) : ((isset($_POST['lang'])) ? strtolower($_POST['lang']) : "");
         if ($lang != '')
         {
             // check lang is exist in group
