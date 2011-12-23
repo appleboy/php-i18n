@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("Language.php");
 
 $lang = new Language();

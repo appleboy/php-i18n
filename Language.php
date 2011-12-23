@@ -34,7 +34,9 @@ class Language {
 
     public function __construct()
     {
-        echo "load language class\n";
+        // check sessiont
+        $session_id = session_id();
+        empty($session_id) and session_start();
     }
 
     public function load($langfile = '', $idiom = '')
