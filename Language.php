@@ -14,13 +14,13 @@ class Language {
      * @var array
      */
     var $is_loaded  = array();
-    /*
+    /**
      * default language folder
      *
      * @var string
      */
     private $language_folder;
-    /*
+    /**
      * default prefix on language array key
      *
      * @var string
@@ -34,7 +34,7 @@ class Language {
 
     public function __construct()
     {
-        // check sessiont
+        // check session
         $session_id = session_id();
         empty($session_id) and session_start();
     }
