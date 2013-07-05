@@ -1,7 +1,7 @@
 <?php
 
-class Language {
-
+class Language
+{
     /**
      * List of translations
      *
@@ -49,25 +49,21 @@ class Language {
 
         $langfile .= '.php';
 
-        if (in_array($langfile, $this->is_loaded, TRUE))
-        {
+        if (in_array($langfile, $this->is_loaded, TRUE)) {
             return;
         }
 
-        if ($idiom == '')
-        {
+        if ($idiom == '') {
             $deft_lang = $this->language_folder;
             $idiom = ($deft_lang == '') ? 'english' : $deft_lang;
         }
 
         // Determine where the language file is and load it
-        if (file_exists('language/'.$idiom.'/'.$langfile))
-        {
-            include('language/'.$idiom.'/'.$langfile);
+        if (file_exists('language/'.$idiom.'/'.$langfile)) {
+            include 'language/'.$idiom.'/'.$langfile);
         }
 
-        if ( ! isset($lang))
-        {
+        if ( ! isset($lang)) {
             return;
         }
 
@@ -90,8 +86,10 @@ class Language {
     private function _set_prefix($lang = array())
     {
         $output = array();
-        foreach ($lang as $key => $val)
-        {
+        foreach ($lang as $key => $val) {
+            // support no prefix key.
+            $output[$key] = $val;
+            // support prefix key.
             $key = $this->language_prefix . "." . $key;
             $output[$key] = $val;
         }
@@ -102,28 +100,27 @@ class Language {
     private function _set_language()
     {
         $lang = (isset($_GET['lang'])) ? strtolower($_GET['lang']) : ((isset($_POST['lang'])) ? strtolower($_POST['lang']) : "");
-        if ($lang != '')
-        {
+        if ($lang != '') {
             // check lang is exist in group
-            if (array_key_exists($lang, $this->language_list))
-            {
+            if (array_key_exists($lang, $this->language_list)) {
                 $_SESSION['lang'] = $lang;
             }
         }
 
         // set default browser language
-        if (!isset($_SESSION['lang']))
-        {
+        if (!isset($_SESSION['lang'])) {
             $_SESSION['lang'] = $this->_default_lang();
         }
 
         $this->language_folder = $this->language_list[$_SESSION['lang']];
+
         return $this;
     }
 
     private function _default_lang()
     {
         $browser_lang = !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? strtolower(strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ',')) : '';
+
         return (!empty($browser_lang) and array_key_exists($browser_lang, $this->language_list)) ? strtolower($browser_lang) : 'en-us';
     }
 }
